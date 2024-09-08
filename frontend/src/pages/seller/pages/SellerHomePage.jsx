@@ -1,5 +1,7 @@
 import { Grid } from '@mui/material';
 import SalesCard from '../components/SalesCard';
+import React from 'react';
+
 import SalesChart from '../components/SalesChart';
 
 const SellerHomePage = () => {

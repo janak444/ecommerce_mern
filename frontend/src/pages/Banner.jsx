@@ -1,5 +1,7 @@
 import { styled } from '@mui/material';
 import Carousel from 'react-multi-carousel';
+import React from 'react';
+
 import 'react-multi-carousel/lib/styles.css';
 import { bannerData } from '../utils/products';
 

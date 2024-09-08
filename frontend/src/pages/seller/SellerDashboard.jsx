@@ -8,6 +8,8 @@ import {
     Divider,
     IconButton,
 } from '@mui/material';
+import React from 'react';
+
 import ListIcon from '@mui/icons-material/List';
 import CloseIcon from '@mui/icons-material/Close';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';

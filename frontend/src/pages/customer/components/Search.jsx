@@ -1,4 +1,6 @@
 import { InputBase, Box, styled } from '@mui/material';
+import React from 'react';
+
 import SearchIcon from '@mui/icons-material/Search';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';

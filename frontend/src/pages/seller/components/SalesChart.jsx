@@ -8,6 +8,8 @@ import {
     SvgIcon
 } from '@mui/material';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import React from 'react';
+
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 import Chart from 'react-apexcharts';
