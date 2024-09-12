@@ -1,0 +1,75 @@
+{
+    "seller_register_description": "Create your own shop by registering as a seller. You will be able to add products and sell them.",
+    "customer_register_description": "Register now to explore and buy products.",
+    "login_description": "Welcome back! Please enter your details.",
+    "name": "Enter your name",
+    "shop_name": "Create your shop name",
+    "email": "Enter your email",
+    "password": "Password",
+    "remember_me": "Remember me",
+    "already_have_account": "Already have an account?",
+    "dont_have_account": "Don't have an account?",
+    "login": "Log in",
+    "signup": "Sign up",
+    "name_required": "Name is required",
+    "shop_name_required": "Shop name is required",
+    "email_required": "Email is required",
+    "password_required": "Password is required",
+
+    "navbar": {
+        "shopcart": "SHOPCART",
+        "languageTooltip": "Switch language",
+        "categories": "Categories",
+        "products": "Products",
+        "customerLogin": "Sign in as customer",
+        "sellerLogin": "Sign in as seller",
+        "signIn": "Sign in",
+        "cart": "Cart",
+        "accountSettings": "Account settings",
+        "profile": "Profile",
+        "myOrders": "My Orders",
+        "logout": "Logout",
+        "searchPlaceholder": "Search for products, brands and more"
+    },
+
+    "cartFunction": {
+        "selectRating": "Please select a rating.",
+        "alreadySubmit":"You have already submitted a review for this product.",
+        "productNotFound": "Product not found",
+        "addToCart": "Add to Cart",
+        "submit": "Submit",
+        "reviews": "Reviews",
+        "rating": "Rating",
+        "edit": "Edit",
+        "delete": "Delete",
+        "reviewNotFound" : "No Reviews Found. Add a review.",
+        "category": "Category",
+        "subCategory": "Subcategory",
+        "loading": "Loading..."
+    },
+    "profile":{
+        "email": "Email",
+        "role":"Role"
+    },
+    "shippingAddress": {
+        "addressRequired":"Address is required",
+        "cityRequired":"City is required",
+        "stateRequired":"State is required",
+        "countryRequired":"Country is required",
+        "pincodeRequired":"Pin Code is required and should be a 5-digit number",
+        "phoneNumberRequired": "Phone Number is required and should be a 10-digit number",
+        "address":"Address",
+        "city":"City",
+        "state":"State/Province/Region",
+        "country":"Country",
+        "pinCode":"Zip / Postal code",
+        "phoneNumber":"Phone Number",
+        "change":"Change",
+        "next": "Next",
+        "update": "Update",
+        "shipping_address":"Shipping address",
+        "submit": "Submit"
+    }
+
+}
+  

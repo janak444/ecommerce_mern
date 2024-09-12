@@ -4,38 +4,48 @@ const { createNewToken } = require('../utils/token.js');
 
 const sellerRegister = async (req, res) => {
     try {
+        // Generate a salt and hash a predefined password
         const salt = await bcrypt.genSalt(10);
-        const hashedPass = await bcrypt.hash(req.body.password, salt);
+        const hashedPass = await bcrypt.hash("customPassword123", salt); 
 
-        const seller = new Seller({
-            ...req.body,
-            password: hashedPass
-        });
+        // Prepare custom seller data
+        const customSellerData = {
+            name: "Custom Seller",        
+            email: "seller@gmail.com", 
+            shopName: "pooja Shop",      
+            password: hashedPass,        
+            role: "Seller"               
+        };
 
-        const existingSellerByEmail = await Seller.findOne({ email: req.body.email });
-        const existingShop = await Seller.findOne({ shopName: req.body.shopName });
+        // Check if email or shopName already exists in the database
+        const existingSellerByEmail = await Seller.findOne({ email: customSellerData.email });
+        const existingShop = await Seller.findOne({ shopName: customSellerData.shopName });
 
         if (existingSellerByEmail) {
-            res.send({ message: 'Email already exists' });
+            return res.send({ message: 'Email already exists' });
         }
-        else if (existingShop) {
-            res.send({ message: 'Shop name already exists' });
+        if (existingShop) {
+            return res.send({ message: 'Shop name already exists' });
         }
-        else {
-            let result = await seller.save();
-            result.password = undefined;
 
-            const token = createNewToken(result._id)
+        // Create new seller with the custom data
+        const seller = new Seller(customSellerData);
+        let result = await seller.save();
+        result.password = undefined; // Hide password from response
 
-            result = {
-                ...result._doc,
-                token: token
-            };
+        // Create a token for the newly registered seller
+        const token = createNewToken(result._id);
 
-            res.send(result);
-        }
+        // Include the token in the response
+        const response = {
+            ...result._doc,
+            token: token
+        };
+
+        // Send the response
+        res.status(201).json(response);
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json({ error: 'Registration failed', details: err });
     }
 };
 

@@ -1,0 +1,74 @@
+{
+    "seller_register_description": "विक्रेता रूपमा दर्ता गरेर आफ्नै पसल खोल्नुहोस्। तपाईंले उत्पादनहरू थप्न र बेच्न सक्नुहुन्छ।",
+    "customer_register_description": "अन्वेषण गर्न र उत्पादनहरू किन्न दर्ता गर्नुहोस्।",
+    "login_description": "फेरी स्वागत छ! कृपया तपाईका विवरणहरू प्रविष्ट गर्नुहोस्।",
+    "name": "तपाईंको नाम प्रविष्ट गर्नुहोस्",
+    "shop_name": "तपाईंको पसलको नाम सिर्जना गर्नुहोस्",
+    "email": "तपाईंको इमेल प्रविष्ट गर्नुहोस्",
+    "password": "पासवर्ड",
+    "remember_me": "मलाई सम्झनुहोस्",
+    "already_have_account": "पहिले नै खाता छ?",
+    "dont_have_account": "खाता छैन?",
+    "login": "लगइन गर्नुहोस्",
+    "signup": "साइन अप गर्नुहोस्",
+    "name_required": "नाम आवश्यक छ",
+    "shop_name_required": "पसलको नाम आवश्यक छ",
+    "email_required": "इमेल आवश्यक छ",
+    "password_required": "पासवर्ड आवश्यक छ",
+
+    "navbar": {
+        "shopcart": "खरीदारी गाडी",
+        "categories": "श्रेणिहरू",
+        "products": "उत्पादनहरू",
+        "languageTooltip": "भाषा परिवर्तन गर्नुहोस्",
+        "customerLogin": "ग्राहकको रूपमा लगइन गर्नुहोस्",
+        "sellerLogin": "विक्रेताको रूपमा लगइन गर्नुहोस्",
+        "signIn": "साइन इन गर्नुहोस्",
+        "cart": "कार्ट",
+        "accountSettings": "खाता सेटिंग्स",
+        "profile": "प्रोफाइल",
+        "myOrders": "मेरो अर्डरहरू",
+        "logout": "लग आउट",
+        "searchPlaceholder": "उत्पादनहरू, ब्रान्डहरू र थपको खोजी गर्नुहोस्"
+    },
+    "cartFunction": {
+        "selectRating": "कृपया एक रेटिंग चयन गर्नुहोस्।",
+        "alreadySubmit": "तपाईंले यस उत्पादनको लागि पहिले नै समीक्षा बुझाइसक्नुभएको छ।",
+        "productNotFound": "उत्पादन फेला परेन",
+        "addToCart": "कार्टमा थप्नुहोस्",
+        "submit": "जमाकर्ता",
+        "reviews": "समीक्षा",
+        "rating": "रेटिंग",
+        "edit": "सम्पादन गर्नुहोस्",
+        "delete": "हटाउनुहोस्",
+        "reviewNotFound": "कुनै समीक्षा फेला परेन। एक समीक्षा थप्नुहोस्।",
+        "category": "श्रेणी",
+        "subCategory": "उपश्रेणी"
+    },
+    "profile": {
+        "email": "इमेल",
+        "role": "भूमिका"
+    },
+    "shippingAddress": {
+    "addressRequired": "ठेगाना आवश्यक छ",
+    "cityRequired": "शहर आवश्यक छ",
+    "stateRequired": "राज्य आवश्यक छ",
+    "countryRequired": "देश आवश्यक छ",
+    "pincodeRequired": "पिन कोड आवश्यक छ र ५-अंकको नम्बर हुनु पर्छ",
+    "phoneNumberRequired": "फोन नम्बर आवश्यक छ र १०-अंकको नम्बर हुनु पर्छ",
+    "address": "ठेगाना",
+    "city": "शहर",
+    "state": "प्रदेश/क्षेत्र",
+    "country": "देश",
+    "pinCode": "जिप / पोस्टल कोड",
+    "phoneNumber": "फोन नम्बर",
+    "change": "परिवर्तन गर्नुहोस्",
+    "next": "अर्को",
+    "update": "अद्यावधिक गर्नुहोस्",
+    "shipping_address": "ढुवानी ठेगाना",
+    "submit": "पेश गर्नुहोस्"
+}
+
+
+}
+  

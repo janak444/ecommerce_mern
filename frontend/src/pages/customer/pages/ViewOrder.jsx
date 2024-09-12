@@ -9,8 +9,10 @@ import { BasicButton, GreenButton } from '../../../utils/buttonStyles';
 import { getProductDetails, updateStuff } from '../../../redux/userHandle';
 import Popup from '../../../components/Popup';
 import { generateRandomColor, timeAgo } from '../../../utils/helperFunctions';
+import { useTranslation } from 'react-i18next';
 
 const ViewOrder = () => {
+    const { t } = useTranslation(); 
     const dispatch = useDispatch();
     const params = useParams();
     const productID = params.id;
@@ -53,7 +55,7 @@ const ViewOrder = () => {
         event.preventDefault();
 
         if (rating === 0) {
-            setMessage("Please select a rating.");
+            setMessage(t("cart.selectRating"));
             setShowPopup(true);
         } else {
             const fields = { rating, comment, reviewer };
@@ -68,7 +70,7 @@ const ViewOrder = () => {
             dispatch(getProductDetails(productID));
             dispatch(underControl());
         } else if (responseReview) {
-            setMessage("You have already submitted a review for this product.");
+            setMessage(t("cartFunction.alreadySubmit"));
             setShowPopup(true);
         } else if (error) {
             setMessage("Network Error");
@@ -79,12 +81,12 @@ const ViewOrder = () => {
     return (
         <>
             {loading ?
-                <div>Loading...</div>
+                <div>{t("cartFunction.loading")}</div>
                 :
                 <>
                     {
                         responseDetails ?
-                            <div>Product not found</div>
+                            <div>{t("cartFunction.productNotFound")}</div>
                             :
                             <>
                                 <ProductContainer>
@@ -98,8 +100,8 @@ const ViewOrder = () => {
                                         </PriceContainer>
                                         <Description>{productDetails && productDetails.description}</Description>
                                         <ProductDetails>
-                                            <p>Category: {productDetails && productDetails.category}</p>
-                                            <p>Subcategory: {productDetails && productDetails.subcategory}</p>
+                                            <p>{t("cartFunction.category")}: {productDetails && productDetails.category}</p>
+                                            <p>{t("cartFunction.subCategory")}: {productDetails && productDetails.subcategory}</p>
                                         </ProductDetails>
                                     </ProductInfo>
                                 </ProductContainer>
@@ -111,7 +113,7 @@ const ViewOrder = () => {
                                             <BasicButton
                                                 onClick={() => dispatch(addToCart(productDetails))}
                                             >
-                                                Add to Cart
+                                                {t("cartFunction.addToCart")}
                                             </BasicButton>
                                         </ButtonContainer>
 
@@ -136,7 +138,7 @@ const ViewOrder = () => {
                                                 />
                                                 <Box sx={{ textAlign: 'right', width: '90%' }}>
                                                     <GreenButton type="submit">
-                                                        Submit
+                                                        {t("cartFunction.submit")}
                                                     </GreenButton>
                                                 </Box>
                                             </ReviewWritingContainer>
@@ -144,7 +146,7 @@ const ViewOrder = () => {
                                     </>
                                 }
                                 <ReviewWritingContainer>
-                                    <Typography variant="h4">Reviews</Typography>
+                                    <Typography variant="h4">{t("cartFunction.reviews")}</Typography>
                                 </ReviewWritingContainer>
 
                                 {productDetails.reviews && productDetails.reviews.length > 0 ? (
@@ -163,7 +165,7 @@ const ViewOrder = () => {
                                                                 {timeAgo(review.date)}
                                                             </Typography>
                                                         </div>
-                                                        <Typography variant="subtitle1">Rating: {review.rating}</Typography>
+                                                        <Typography variant="subtitle1">{t("cartFunction.rating")}: {review.rating}</Typography>
                                                         <Typography variant="body1">{review.comment}</Typography>
                                                     </ReviewDetails>
                                                     {review.reviewer._id === reviewer &&
@@ -190,13 +192,13 @@ const ViewOrder = () => {
                                                                 <MenuItem onClick={() => {
                                                                     handleCloseMenu()
                                                                 }}>
-                                                                    <Typography textAlign="center">Edit</Typography>
+                                                                    <Typography textAlign="center">{t("cartFunction.edit")}</Typography>
                                                                 </MenuItem>
                                                                 <MenuItem onClick={() => {
                                                                     deleteHandler(review._id)
                                                                     handleCloseMenu()
                                                                 }}>
-                                                                    <Typography textAlign="center">Delete</Typography>
+                                                                    <Typography textAlign="center">{t("cartFunction.delete")}</Typography>
                                                                 </MenuItem>
                                                             </Menu>
                                                         </>
@@ -208,7 +210,7 @@ const ViewOrder = () => {
                                 )
                                     :
                                     <ReviewWritingContainer>
-                                        <Typography variant="h6">No Reviews Found. Add a review.</Typography>
+                                        <Typography variant="h6">{t("cartFunction.reviewNotFound")}</Typography>
                                     </ReviewWritingContainer>
                                 }
                             </>

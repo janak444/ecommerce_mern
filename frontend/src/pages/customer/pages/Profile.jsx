@@ -3,8 +3,10 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Paper, Typography, Avatar, Container } from '@mui/material';
 import ShippingPage from '../components/ShippingPage';
+import { useTranslation } from 'react-i18next';
 
 const Profile = () => {
+  const { t } = useTranslation(); 
   const { currentUser } = useSelector(state => state.user);
 
   return (
@@ -20,10 +22,10 @@ const Profile = () => {
             {currentUser ? currentUser.name : ''}
           </ProfileName>
           <ProfileText variant="h6">
-            Email : {currentUser ? currentUser.email : ''}
+            {t("profile.email")} : {currentUser ? currentUser.email : ''}
           </ProfileText>
           <ProfileText variant="h6">
-            Role : {currentUser ? currentUser.role : ''}
+          {t("profile.role")}: {currentUser ? currentUser.role : ''}
           </ProfileText>
         </ProfileHeader>
       </ProfileContainer>

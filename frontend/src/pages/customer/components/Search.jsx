@@ -1,13 +1,16 @@
 import { InputBase, Box, styled } from '@mui/material';
 import React from 'react';
 
+import { useTranslation } from 'react-i18next';   
 import SearchIcon from '@mui/icons-material/Search';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getSearchedProducts } from '../../../redux/userHandle';
 
+
 const Search = () => {
+    const { t } = useTranslation();
 
     const navigate = useNavigate()
 
@@ -28,7 +31,7 @@ const Search = () => {
     return (
         <SearchContainer>
             <InputSearchBase
-                placeholder="Search for products, brands and more"
+                placeholder={t("navbar.searchPlaceholder")}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onKeyDown={(e) => {

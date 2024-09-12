@@ -7,13 +7,12 @@ import { getProducts } from '../redux/userHandle';
 import ProductsMenu from './customer/components/ProductsMenu';
 import { NewtonsCradle } from '@uiball/loaders';
 import { Link } from 'react-router-dom';
+import Footer from './footer';
 
 const Home = () => {
-  const adURL =
-    'https://rukminim1.flixcart.com/flap/464/708/image/1f03e99f6dc9f7a6.jpg?q=70';
+  const adURL = 'https://rukminim1.flixcart.com/flap/464/708/image/1f03e99f6dc9f7a6.jpg?q=70';
 
   const dispatch = useDispatch();
-
   const { productData, responseProducts, error } = useSelector((state) => state.user);
 
   const [showNetworkError, setShowNetworkError] = useState(false);
@@ -33,68 +32,74 @@ const Home = () => {
   }, [error]);
 
   return (
-    <div id="top">
-      <Container
-        sx={{
-          display: 'none',
-          '@media (max-width: 600px)': {
-            display: 'flex',
-          },
-        }}
-      >
-        <ProductsMenu dropName="Categories" />
-        <ProductsMenu dropName="Products" />
-      </Container>
-      <BannerBox>
-        <Banner />
-      </BannerBox>
+    <PageWrapper>
+      <ContentWrapper>
+        <Container
+          sx={{
+            display: 'none',
+            '@media (max-width: 600px)': {
+              display: 'flex',
+            },
+          }}
+        >
+          <ProductsMenu dropName="Categories" />
+          <ProductsMenu dropName="Products" />
+        </Container>
 
-      {showNetworkError ? (
-        <StyledContainer>
-          <h1>Sorry, network error.</h1>
-        </StyledContainer>
-      ) : error ? (
-        <StyledContainer>
-          <h1>Please Wait A Second</h1>
-          <NewtonsCradle size={70} speed={1.4} color="black" />
-        </StyledContainer>
-      ) : (
-        <>
-          {responseProducts ? (
-            <>
-              <StyledContainer>No products found right now</StyledContainer>
-              <StyledContainer>
-                Become a seller to add products
-                <Link to={"/Sellerregister"}>
-                  Join
-                </Link>
-              </StyledContainer>
-            </>
-          ) : (
-            <>
-              <Component>
-                <LeftComponent>
-                  <Slide products={productData} title="Top Selection" />
-                </LeftComponent>
+        <BannerBox>
+          <Banner />
+        </BannerBox>
 
-                <RightComponent>
-                  <img src={adURL} alt="" style={{ width: 217 }} />
-                </RightComponent>
-              </Component>
+        {showNetworkError ? (
+          <StyledContainer>
+            <h1>Sorry, network error.</h1>
+          </StyledContainer>
+        ) : error ? (
+          <StyledContainer>
+            <h1>Please Wait A Second</h1>
+            <NewtonsCradle size={70} speed={1.4} color="black" />
+          </StyledContainer>
+        ) : (
+          <>
+            {responseProducts ? (
+              <>
+                <StyledContainer>No products found right now</StyledContainer>
+                <StyledContainer>
+                  Become a seller to add products
+                  <Link to="/Sellerregister">Join</Link>
+                </StyledContainer>
+              </>
+            ) : (
+              <>
+                <Component>
+                  <LeftComponent>
+                    <Slide products={productData} title="Top Selection" />
+                  </LeftComponent>
 
-              <Slide products={productData} title="Deals of the Day" />
-              <Slide products={productData} title="Suggested Items" />
-              <Slide products={productData} title="Discounts for You" />
-              <Slide products={productData} title="Recommended Items" />
-            </>
-          )}
-        </>
-      )}
-    </div>
+                  <RightComponent>
+                    <img src={adURL} alt="" style={{ width: 217 }} />
+                  </RightComponent>
+                </Component>
+
+                <Slide products={productData} title="Deals of the Day" />
+                <Slide products={productData} title="Suggested Items" />
+                <Slide products={productData} title="Discounts for You" />
+                <Slide products={productData} title="Recommended Items" />
+              </>
+            )}
+          </>
+        )}
+      </ContentWrapper>
+      <FooterWrapper>
+        <Footer />
+      </FooterWrapper>
+    </PageWrapper>
   );
 };
 
 export default Home;
+
+// Styled components
 
 const StyledContainer = styled(Container)`
   display: flex;
@@ -106,7 +111,7 @@ const StyledContainer = styled(Container)`
 
 const BannerBox = styled(Box)`
   padding: 20px 10px;
-  background: #F2F2F2;
+  background: #f2f2f2;
 `;
 
 const Component = styled(Box)`
@@ -122,7 +127,7 @@ const LeftComponent = styled(Box)(({ theme }) => ({
 
 const RightComponent = styled(Box)(({ theme }) => ({
   marginTop: 10,
-  background: '#FFFFFF',
+  background: '#ffffff',
   width: '17%',
   marginLeft: 10,
   padding: 5,
@@ -131,3 +136,21 @@ const RightComponent = styled(Box)(({ theme }) => ({
     display: 'none',
   },
 }));
+
+// Layout Wrappers
+const PageWrapper = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure it takes the full height of the viewport */
+`;
+
+const ContentWrapper = styled(Box)`
+  flex: 1; /* Takes up all available vertical space */
+  padding-bottom: 20px; /* Prevent content from being hidden behind footer */
+`;
+
+const FooterWrapper = styled(Box)`
+  background-color: #f2f2f2;
+  width: 100%;
+  bottom: 0;
+`;

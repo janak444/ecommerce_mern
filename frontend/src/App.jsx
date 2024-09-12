@@ -17,6 +17,7 @@ import { isTokenValid } from './redux/userSlice';
 import CheckoutAftermath from './pages/customer/pages/CheckoutAftermath';
 import ViewOrder from './pages/customer/pages/ViewOrder';
 import React from "react";
+import './i18n';
 
 const App = () => {
 
@@ -52,7 +53,6 @@ const App = () => {
 
             <Route path="/Customerregister" element={<AuthenticationPage mode="Register" role="Customer" />} />
             <Route path="/Customerlogin" element={<AuthenticationPage mode="Login" role="Customer" />} />
-            <Route path="/Sellerregister" element={<AuthenticationPage mode="Register" role="Seller" />} />
             <Route path="/Sellerlogin" element={<AuthenticationPage mode="Login" role="Seller" />} />
           </Routes>
         </>

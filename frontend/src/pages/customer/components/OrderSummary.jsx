@@ -60,7 +60,7 @@ const OrderSummary = ({ handleNext, handleBack }) => {
                         <ListItem sx={{ py: 1, px: 0 }}>
                             <ListItemText primary="Total Amount" />
                             <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-                                ₹{productDetailsCart.price && productDetailsCart.price.cost * productDetailsCart.quantity}
+                            रु.{productDetailsCart.price && productDetailsCart.price.cost * productDetailsCart.quantity}
                             </Typography>
                         </ListItem>
                     </List>

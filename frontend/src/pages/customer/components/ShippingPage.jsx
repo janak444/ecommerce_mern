@@ -8,8 +8,10 @@ import { updateCustomer } from '../../../redux/userHandle';
 import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 import { BlueButton, GreenButton } from '../../../utils/buttonStyles';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const ShippingPage = ({ handleNext, profile }) => {
+  const { t } = useTranslation();
   const { currentUser } = useSelector(state => state.user);
 
   const dispatch = useDispatch();
@@ -52,37 +54,37 @@ const ShippingPage = ({ handleNext, profile }) => {
     const newErrors = {};
 
     if (formData.address.trim() === '') {
-      newErrors.address = 'Address is required';
+      newErrors.address = t('shippingAddress.addressRequired');
     } else {
       newErrors.address = '';
     }
 
     if (formData.city.trim() === '') {
-      newErrors.city = 'City is required';
+      newErrors.city = t('shippingAddress.cityRequired');
     } else {
       newErrors.city = '';
     }
 
     if (formData.state.trim() === '') {
-      newErrors.state = 'State is required';
+      newErrors.state = t('shippingAddress.stateRequired');
     } else {
       newErrors.state = '';
     }
 
     if (formData.country.trim() === '') {
-      newErrors.country = 'Country is required';
+      newErrors.country = t('shippingAddress.countryRequired');
     } else {
       newErrors.country = '';
     }
 
-    if (formData.pinCode.trim() === '' || isNaN(formData.pinCode) || formData.pinCode.length !== 6) {
-      newErrors.pinCode = 'Pin Code is required and should be a 6-digit number';
+    if (formData.pinCode.trim() === '' || isNaN(formData.pinCode) || formData.pinCode.length !== 5) {
+      newErrors.pinCode = t('shippingAddress.pincodeRequired');
     } else {
       newErrors.pinCode = '';
     }
 
     if (formData.phoneNo.trim() === '' || isNaN(formData.phoneNo) || formData.phoneNo.length !== 10) {
-      newErrors.phoneNo = 'Phone Number is required and should be a 10-digit number';
+      newErrors.phoneNo = t('shippingAddress.phoneNumberRequired');
     } else {
       newErrors.phoneNo = '';
     }
@@ -154,22 +156,22 @@ const ShippingPage = ({ handleNext, profile }) => {
         shippingData && Object.keys(shippingData).length > 0 ? 
           <React.Fragment>
             <StyledTypography variant="h6">
-              Address : {shippingData && shippingData.address}
+            {t('shippingAddress.address')} : {shippingData && shippingData.address}
             </StyledTypography>
             <StyledTypography variant="h6">
-              City : {shippingData && shippingData.city}
+            {t('shippingAddress.city')} : {shippingData && shippingData.city}
             </StyledTypography>
             <StyledTypography variant="h6">
-              State : {shippingData && shippingData.state}
+            {t('shippingAddress.state')} : {shippingData && shippingData.state}
             </StyledTypography>
             <StyledTypography variant="h6">
-              Country : {shippingData && shippingData.country}
+            {t('shippingAddress.country')} : {shippingData && shippingData.country}
             </StyledTypography>
             <StyledTypography variant="h6">
-              Pin Code : {shippingData && shippingData.pinCode}
+            {t('shippingAddress.pinCode')} : {shippingData && shippingData.pinCode}
             </StyledTypography>
             <StyledTypography variant="h6">
-              Phone Number : {shippingData && shippingData.phoneNo}
+            {t('shippingAddress.phoneNumber')} : {shippingData && shippingData.phoneNo}
             </StyledTypography>
 
             {profile ?
@@ -188,14 +190,14 @@ const ShippingPage = ({ handleNext, profile }) => {
                   onClick={() => navigate("/profile")}
                   sx={{ mt: 3, ml: 1 }}
                 >
-                  Change
+                  {t('shippingAddress.change')}
                 </GreenButton>
                 <Button
                   variant="contained"
                   onClick={handleNext}
                   sx={{ mt: 3, ml: 1 }}
                 >
-                  Next
+                  {t('shippingAddress.next')}
                 </Button>
               </Box>
             }
@@ -221,7 +223,7 @@ const ShippingPage = ({ handleNext, profile }) => {
                     <Stack spacing={3}>
                       <TextField
                         fullWidth
-                        label="Address"
+                        label={t("shippingAddress.address")}
                         value={address}
                         onChange={(event) => setAddress(event.target.value)}
                         required
@@ -231,7 +233,7 @@ const ShippingPage = ({ handleNext, profile }) => {
                       />
                       <TextField
                         fullWidth
-                        label="City"
+                        label={t("shippingAddress.city")}
                         value={city}
                         onChange={(event) => setCity(event.target.value)}
                         required
@@ -242,7 +244,7 @@ const ShippingPage = ({ handleNext, profile }) => {
                       <TextField
                         fullWidth
                         multiline
-                        label="Zip / Postal code"
+                        label={t("shippingAddress.pinCode")}
                         type='number'
                         value={pinCode}
                         error={pinCodeError}
@@ -254,8 +256,9 @@ const ShippingPage = ({ handleNext, profile }) => {
                         }}
                       />
                       <TextField
+                        key={t('shippingAddress.country')}
                         fullWidth
-                        label="Country"
+                        label={t('shippingAddress.country')}
                         value={country}
                         onChange={(event) => setCountry(event.target.value)}
                         required
@@ -265,7 +268,7 @@ const ShippingPage = ({ handleNext, profile }) => {
                       />
                       <TextField
                         fullWidth
-                        label="State/Province/Region"
+                        label={t("shippingAddress.state")}
                         value={state}
                         onChange={(event) => setState(event.target.value)}
                         required
@@ -275,11 +278,11 @@ const ShippingPage = ({ handleNext, profile }) => {
                       />
                       <TextField
                         fullWidth
-                        label="Phone number"
+                        label={t("shippingAddress.phoneNumber")}
                         type='number'
                         value={phoneNo}
                         error={phoneNoError}
-                        helperText={phoneNoError && 'Phone Number should be a 10-digit number'}
+                        helperText={phoneNoError && t("shippingAddress.phoneNumberRequired")}
                         onChange={(event) => setPhoneNo(event.target.value)}
                         required
                         InputLabelProps={{
@@ -294,7 +297,7 @@ const ShippingPage = ({ handleNext, profile }) => {
                       variant="contained"
                       type="submit"
                     >
-                      Update
+                      {t('shippingAddress.update')}
                     </BlueButton>
                   </form>
                 </Box>
@@ -305,7 +308,7 @@ const ShippingPage = ({ handleNext, profile }) => {
           :
           <React.Fragment>
             <Typography variant="h6" gutterBottom>
-              Shipping address
+            {t('shippingAddress.shipping_address')}
             </Typography>
             <Grid container spacing={3}>
               <Grid item xs={12}>
@@ -313,7 +316,7 @@ const ShippingPage = ({ handleNext, profile }) => {
                   required
                   id="address"
                   name="address"
-                  label="Address"
+                  label={t('shippingAddress.address')}
                   fullWidth
                   autoComplete="shipping address-line1"
                   variant="standard"
@@ -328,7 +331,7 @@ const ShippingPage = ({ handleNext, profile }) => {
                   required
                   id="city"
                   name="city"
-                  label="City"
+                  label={t('shippingAddress.city')}
                   fullWidth
                   autoComplete="shipping address-level2"
                   variant="standard"
@@ -343,7 +346,7 @@ const ShippingPage = ({ handleNext, profile }) => {
                   required
                   id="pinCode"
                   name="pinCode"
-                  label="Zip / Postal code"
+                  label={t('shippingAddress.pinCode')}
                   type='number'
                   fullWidth
                   autoComplete="shipping postal-code"
@@ -361,7 +364,7 @@ const ShippingPage = ({ handleNext, profile }) => {
                   required
                   id="country"
                   name="country"
-                  label="Country"
+                  label={t('shippingAddress.country')}
                   fullWidth
                   autoComplete="shipping country"
                   variant="standard"
@@ -375,7 +378,7 @@ const ShippingPage = ({ handleNext, profile }) => {
                 <TextField
                   id="state"
                   name="state"
-                  label="State/Province/Region"
+                  label={t('shippingAddress.state')}
                   fullWidth
                   variant="standard"
                   value={formData.state}
@@ -390,7 +393,7 @@ const ShippingPage = ({ handleNext, profile }) => {
                   required
                   id="phoneNo"
                   name="phoneNo"
-                  label="Phone number"
+                  label={t('shippingAddress.phoneNumber')}
                   type='number'
                   fullWidth
                   autoComplete="shipping Phone-number"
@@ -409,7 +412,7 @@ const ShippingPage = ({ handleNext, profile }) => {
                   onClick={profileSubmitHandler}
                   sx={{ mt: 3, ml: 1 }}
                 >
-                  Submit
+                  {t('shippingAddress.submit')}
                 </Button>
                 :
                 <Button
@@ -417,7 +420,7 @@ const ShippingPage = ({ handleNext, profile }) => {
                   onClick={handleSubmit}
                   sx={{ mt: 3, ml: 1 }}
                 >
-                  Next
+                  {t('shippingAddress.next')}
                 </Button>
               }
             </Box>

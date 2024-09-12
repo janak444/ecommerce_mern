@@ -25,11 +25,23 @@ import Search from './customer/components/Search';
 import ProductsMenu from './customer/components/ProductsMenu';
 import { updateCustomer } from '../redux/userHandle';
 
+import { useTranslation } from 'react-i18next';   
+import Switch from '@mui/material/Switch';
+
 const Navbar = () => {
     const { currentUser, currentRole } = useSelector(state => state.user);
 
     const totalQuantity = currentUser && currentUser.cartDetails && currentUser.cartDetails.reduce((total, item) => total + item.quantity, 0);
 
+    const { t, i18n } = useTranslation(); // Access i18n instance and t function
+
+    const [language, setLanguage] = React.useState('en'); // State to track selected language
+
+    const handleLanguageToggle = (event) => {
+        const newLanguage = event.target.checked ? 'ne' : 'en';
+        setLanguage(newLanguage);
+        i18n.changeLanguage(newLanguage); // Change the language using i18next
+    };
     const navigate = useNavigate()
     const dispatch = useDispatch();
 
@@ -133,9 +145,20 @@ const Navbar = () => {
                                 duration={500}
                                 onClick={homeHandler}
                             >
-                                SHOPCART
+                            {t('navbar.shopcart')}  
                             </NavLogo>
                         </Typography>
+                {/* Language Toggle */}
+                    <Box sx={{ flexGrow: 0 }}>
+                        <Tooltip title={t('navbar.languageTooltip')}>
+                            <Switch
+                                checked={language === 'ne'}
+                                onChange={handleLanguageToggle}
+                                color="default"
+                                inputProps={{ 'aria-label': 'language switch' }}
+                            />
+                        </Tooltip>
+                    </Box>
                     </HomeContainer>
 
                     {currentRole === null &&
@@ -214,15 +237,15 @@ const Navbar = () => {
                             >
                                 <LocalMallIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
 
-                                SHOPCART
+                                {t('navbar.shopcart')}
                             </NavLogo>
                         </Typography>
                     </HomeContainer>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, }}>
                         <Search />
-                        <ProductsMenu dropName="Categories" />
-                        <ProductsMenu dropName="Products" />
+                        <ProductsMenu dropName={t('navbar.categories')} />
+                        <ProductsMenu dropName={t('navbar.products')} />
                     </Box>
 
                     {currentRole === null &&
@@ -231,7 +254,7 @@ const Navbar = () => {
                                 onClick={handleOpenSigninMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
-                                Sign in
+                                 {t('navbar.signIn')}
                             </Button>
                             <Menu
                                 anchorEl={anchorElSign}
@@ -239,17 +262,13 @@ const Navbar = () => {
                                 open={openSign}
                                 onClose={handleCloseSigninMenu}
                                 onClick={handleCloseSigninMenu}
-                                PaperProps={{
-                                    elevation: 0,
-                                    sx: styles.styledPaper,
-                                }}
                                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                             >
                                 <MenuItem onClick={() => navigate("/Customerlogin")}>
                                     <Avatar />
                                     <Link to="/Customerlogin">
-                                        Sign in as customer
+                                    {t('navbar.customerLogin')}
                                     </Link>
                                 </MenuItem>
                                 <Divider />
@@ -258,7 +277,7 @@ const Navbar = () => {
                                         <Store fontSize="small" />
                                     </ListItemIcon>
                                     <Link to="/Sellerlogin">
-                                        Sign in as seller
+                                    {t('navbar.sellerLogin')}
                                     </Link>
                                 </MenuItem>
                             </Menu>
@@ -296,17 +315,13 @@ const Navbar = () => {
                                 open={open}
                                 onClose={handleCloseUserMenu}
                                 onClick={handleCloseUserMenu}
-                                PaperProps={{
-                                    elevation: 0,
-                                    sx: styles.styledPaper,
-                                }}
                                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                             >
                                 <MenuItem onClick={() => navigate("/Profile")}>
                                     <Avatar />
                                     <Link to="/Profile">
-                                        Profile
+                                    {t('navbar.profile')}
                                     </Link>
                                 </MenuItem>
                                 <MenuItem onClick={() => navigate("/Orders")}>
@@ -314,7 +329,7 @@ const Navbar = () => {
                                         <Shop2 fontSize="small" />
                                     </ListItemIcon>
                                     <Link to="/Orders">
-                                        My Orders
+                                    {t('navbar.myOrders')}
                                     </Link>
                                 </MenuItem>
                                 <Divider />
@@ -323,7 +338,7 @@ const Navbar = () => {
                                         <Logout fontSize="small" />
                                     </ListItemIcon>
                                     <Link to="/Logout">
-                                        Logout
+                                    {t('navbar.logout')}
                                     </Link>
                                 </MenuItem>
                             </Menu>
