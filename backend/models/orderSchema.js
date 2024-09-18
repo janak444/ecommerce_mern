@@ -81,9 +81,16 @@ const orderSchema = new mongoose.Schema(
                 required: true,
             },
         },
+        paymentMethod: {
+            type: String, 
+            required: true,
+        },
+        remarks: {
+            type: String, 
+            default: null,
+        },
         paidAt: {
             type: Date,
-            required: true,
         },
         productsQuantity: {
             type: Number,
@@ -108,13 +115,22 @@ const orderSchema = new mongoose.Schema(
         orderStatus: {
             type: String,
             required: true,
-            default: "Processing",
+            default: "Processing",  // Status can be "Pending", "Completed", "Cancelled", etc.
+        },
+        isCompleted: {
+            type: Boolean,
+            default: false,  // To track if the order is completed
+        },
+        isCancelled: {
+            type: Boolean,
+            default: false,  // To track if the order is cancelled
         },
         deliveredAt: Date,
         createdAt: {
             type: Date,
             default: Date.now,
         },
-    });
+    }
+);
 
 module.exports = mongoose.model("order", orderSchema);

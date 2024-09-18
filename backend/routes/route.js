@@ -34,7 +34,9 @@ const {
 const {
     newOrder,
     getOrderedProductsByCustomer,
-    getOrderedProductsBySeller
+    getOrderedProductsBySeller,
+    getCompletedOrdersByCustomer,
+    getCancelledOrdersByCustomer
 } = require('../controllers/orderController.js');
 
 
@@ -72,5 +74,7 @@ router.put('/CustomerUpdate/:id', cartUpdate);
 router.post('/newOrder', newOrder);
 router.get('/getOrderedProductsByCustomer/:id', getOrderedProductsByCustomer);
 router.get('/getOrderedProductsBySeller/:id', getOrderedProductsBySeller);
+router.get('/getCompletedOrdersByCustomer/:id', getCompletedOrdersByCustomer);
+router.get('/getCancelledOrdersByCustomer/:id', getCancelledOrdersByCustomer);
 
 module.exports = router;

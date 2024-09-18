@@ -213,3 +213,19 @@ export const getSearchedProducts = (address, key) => async (dispatch) => {
         dispatch(getError(error));
     }
 }
+
+export const updateProductRemarks = (productId, remarks) => async (dispatch) => {
+    try {
+        const { data } = await axios.put(`${process.env.REACT_APP_BASE_URL}/getOrderedProductsBySeller/${productId}`, { remarks });
+
+        dispatch({
+            type: 'UPDATE_PRODUCT_REMARKS_SUCCESS',
+            payload: data,
+        });
+    } catch (error) {
+        dispatch({
+            type: 'UPDATE_PRODUCT_REMARKS_FAIL',
+            payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+        });
+    }
+};
