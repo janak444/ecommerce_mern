@@ -46,6 +46,7 @@ const OutForDeliverySection = () => {
 
     // Define columns for product table
     const productsColumns = [
+        { id: 'customer', label: 'Customer', minWidth: 170 },
         { id: 'name', label: 'Product Name', minWidth: 170 },
         { id: 'quantity', label: 'Product Quantity', minWidth: 100 },
         { id: 'category', label: 'Product Category', minWidth: 100 },
@@ -55,15 +56,18 @@ const OutForDeliverySection = () => {
 
     // Map over specificProductData to generate rows for the table
     const productsRows = Array.isArray(specificProductData) && specificProductData.length > 0
-        ? specificProductData.map((product) => ({
-            name: product.productName,
-            quantity: product.quantity,
-            category: product.category,
-            subcategory: product.subcategory,
-            remarks: product.remarks || "No remarks", // Default to "No remarks" if empty
-            id: product.productName,
-            productID: product._id,
-        }))
+        ? specificProductData.flatMap(order => 
+            order.products.map(product => ({
+                customer: order.customer || "Unknown customer",
+                name: product.productName,
+                quantity: product.quantity,
+                category: product.category,
+                subcategory: product.subcategory,
+                remarks: order.remarks || "No remarks", // Use order remarks
+                id: product.productName,
+                productID: product._id,
+            }))
+        )
         : [];
 
     // Button component for each row (View and Update Remarks)

@@ -102,39 +102,32 @@ const getOrderedProductsBySeller = async (req, res) => {
     try {
         const sellerId = req.params.id;
 
-        // Find orders with products sold by the seller
+        // Find orders with products sold by the seller and populate buyer information
         const ordersWithSellerId = await Order.find({
             'orderedProducts.seller': sellerId
-        }).select('orderedProducts remarks'); // Select orderedProducts and remarks fields
+        })
+        .populate('buyer', 'name') // Populate the buyer field and select only the name
+        .select('orderedProducts remarks buyer'); // Select orderedProducts, remarks, and buyer fields
 
         if (ordersWithSellerId.length > 0) {
-            const orderedProducts = ordersWithSellerId.reduce((accumulator, order) => {
-                order.orderedProducts.forEach(product => {
-                    const existingProductIndex = accumulator.findIndex(p => p.productName === product.productName);
+            // Map through the orders and structure the response
+            const orderDetails = ordersWithSellerId.map(order => {
+                return {
+                    customer: order.buyer ? order.buyer.name : "Unknown customer", // Add customer name if available
+                    products: order.orderedProducts.map(product => ({
+                        ...product.toObject() // Convert product to object
+                    })),
+                    remarks: order.remarks || "No remarks" // Add remarks for each order
+                };
+            });
 
-                    // If product already exists, merge quantities and include remarks
-                    if (existingProductIndex !== -1) {
-                        accumulator[existingProductIndex].quantity += product.quantity;
-                        // Here you can decide how to handle remarks if needed
-                        // For now, we're just adding them from the order
-                        accumulator[existingProductIndex].remarks = order.remarks || "No remarks";
-                    } else {
-                        // Add new product and include remarks from the order
-                        accumulator.push({
-                            ...product.toObject(),
-                            remarks: order.remarks || "No remarks" // Add remarks for the order
-                        });
-                    }
-                });
-                return accumulator;
-            }, []);
-
-            res.send(orderedProducts);
+            // Send the array of order details with products and remarks
+            res.send(orderDetails);
         } else {
-            res.send({ message: "No products found" });
+            res.status(404).json({ message: "No orders found for this seller" });
         }
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json({ error: "Internal Server Error", details: err.message });
     }
 };
 
