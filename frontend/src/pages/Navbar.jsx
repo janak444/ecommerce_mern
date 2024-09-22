@@ -28,6 +28,8 @@ import { updateCustomer } from '../redux/userHandle';
 import { useTranslation } from 'react-i18next';   
 import Switch from '@mui/material/Switch';
 
+import yourLogo from '../assets/my-logo.png' 
+
 const Navbar = () => {
     const { currentUser, currentRole } = useSelector(state => state.user);
 
@@ -103,7 +105,7 @@ const Navbar = () => {
 
     return (
         <AppBar position="sticky">
-            <Container maxWidth="xl" sx={{  background: 'linear-gradient(to right, #8B0000, #4B0082)' }}>
+            <Container maxWidth="xl" sx={{  background: '#FF4A4B' }}>
                 <Toolbar disableGutters>
 
                     {/* MOBILE */}
@@ -145,6 +147,7 @@ const Navbar = () => {
                                 duration={500}
                                 onClick={homeHandler}
                             >
+                                 <img src={yourLogo} alt="Logo" style={{ width: '150px', height: 'auto' }} />
                             {t('navbar.samarpan')}  
                             </NavLogo>
                         </Typography>
@@ -227,17 +230,23 @@ const Navbar = () => {
                             }}
                         >
                             <NavLogo
-                                to="top"
-                                activeClass="active"
-                                spy={true}
-                                smooth={true}
-                                offset={-70}
-                                duration={500}
-                                onClick={homeHandler}
+                            to="top"
+                            activeClass="active"
+                            spy={true}
+                            smooth={true}
+                            offset={-70}
+                            duration={500}
+                            onClick={homeHandler}
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',       // Vertically center items
+                                justifyContent: 'center',   // Horizontally center items
+                                width: '100%',              // Ensure it takes full width of the navbar
+                            }}
                             >
-                                <LocalMallIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-
-                                {t('navbar.samarpan')}
+                            <LocalMallIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+                            <img src={yourLogo} alt="Logo" style={{ width: '150px', height: 'auto' }} />
+                            {t('navbar.samarpan')}
                             </NavLogo>
                         </Typography>
                     </HomeContainer>

@@ -46,9 +46,9 @@ const Home = () => {
           <ProductsMenu dropName="Products" />
         </Container>
 
-        <BannerBox>
+        {/* <BannerBox>
           <Banner />
-        </BannerBox>
+        </BannerBox> */}
 
         {showNetworkError ? (
           <StyledContainer>
@@ -71,15 +71,15 @@ const Home = () => {
               </>
             ) : (
               <>
-                <Component>
-                  <LeftComponent>
+                {/* <Component> */}
+                  {/* <LeftComponent> */}
                     <Slide products={productData} title="Top Selection" />
-                  </LeftComponent>
-
+                  {/* </LeftComponent> */}
+{/* 
                   <RightComponent>
                     <img src={adURL} alt="" style={{ width: 217 }} />
-                  </RightComponent>
-                </Component>
+                  </RightComponent> */}
+                {/* </Component> */}
 
                 <Slide products={productData} title="Deals of the Day" />
                 <Slide products={productData} title="Suggested Items" />

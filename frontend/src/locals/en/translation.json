@@ -29,7 +29,8 @@
         "profile": "Profile",
         "myOrders": "My Orders",
         "logout": "Logout",
-        "searchPlaceholder": "Search for products, brands and more"
+        "searchPlaceholder": "Search for products, brands and more",
+        "samarpan":"SAMARPAN Pooja Samagri Pasal"
     },
 
     "cartFunction": {
