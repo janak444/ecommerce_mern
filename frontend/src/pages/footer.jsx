@@ -75,7 +75,7 @@ const ContentWrapper = styled(Box)`
 `;
 
 const Footer = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   return (
     <FooterContainer>
@@ -95,15 +95,15 @@ const Footer = () => {
         <RightColumns>
           {/* Address Column */}
           <AddressColumn>
-            <h2>{t("Address")}</h2>
-            <p>{t("📞 Contact No")}: {t("(+977) 01-5923811")}</p>
-            <p>{t(" Mobile No")}: {t("9767987711")}</p>
-            <p>{t("📧 EMail")}: samarpan.hindu@gmail.com</p>
+            <h2>{t('footer.Address')}</h2>
+            <p>{t('footer.Contact_No')}: {t('footer.phoneNumber')}</p>
+            <p>{t('footer.Mobile_No')}: {t('footer.mobileNo')}</p>
+            <p>{t("footer.Email")}: samarpan.hindu@gmail.com</p>
           </AddressColumn>
 
           {/* Related Links Column */}
           <RelatedLinksColumn>
-            <h2>{t("Related Links")}</h2>
+            <h2>{t("footer.relatedLinks")}</h2>
             <ul>
               <a href="https://moud.gov.np/" target="_blank" rel="noreferrer noopener">
                 <li>{t("Ministry of Urban Development")}</li>
@@ -125,7 +125,7 @@ const Footer = () => {
       <FooterText>
         {t("Last updated on")}: 1 day ago | ©{" "}
         {t("All Rights Samarpan Pooja Samagri Pasal")} | @Powered By:
-        Devsoft Vision | {t("Site Visited")}: 25k+
+        Devsoft Vision Pvt. Ltd.| {t("Site Visited")}: 25k+
       </FooterText>
     </FooterContainer>
   );

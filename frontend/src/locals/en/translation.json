@@ -70,6 +70,15 @@
         "update": "Update",
         "shipping_address":"Shipping address",
         "submit": "Submit"
+    },
+    "footer" :{
+        "Address" :"Address",
+        "Contact_No":"📞 Contact No",
+        "Mobile_No":" Mobile No",
+        "Email":"📧 EMail",
+        "phoneNumber":"(+977) 01-5923811",
+        "mobileNo":"9767987711",
+        "relatedLinks":"Related Links"
     }
 
 }
