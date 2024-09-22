@@ -9,8 +9,12 @@ import { NewtonsCradle } from '@uiball/loaders';
 import { Link } from 'react-router-dom';
 import Footer from './footer';
 
+import { useTranslation } from "react-i18next";
+
 const Home = () => {
   const adURL = 'https://rukminim1.flixcart.com/flap/464/708/image/1f03e99f6dc9f7a6.jpg?q=70';
+ 
+  const { t, i18n } = useTranslation();
 
   const dispatch = useDispatch();
   const { productData, responseProducts, error } = useSelector((state) => state.user);
@@ -52,39 +56,39 @@ const Home = () => {
 
         {showNetworkError ? (
           <StyledContainer>
-            <h1>Sorry, network error.</h1>
+            <h1>{t('home.networkError')}</h1>
           </StyledContainer>
         ) : error ? (
           <StyledContainer>
-            <h1>Please Wait A Second</h1>
+            <h1>{t('home.waitSecond')}</h1>
             <NewtonsCradle size={70} speed={1.4} color="black" />
           </StyledContainer>
         ) : (
           <>
             {responseProducts ? (
               <>
-                <StyledContainer>No products found right now</StyledContainer>
+                <StyledContainer>{t('home.productNotFound')}</StyledContainer>
                 <StyledContainer>
-                  Become a seller to add products
-                  <Link to="/Sellerregister">Join</Link>
+                {t('home.becomeSeller')}
+                  <Link to="/Sellerregister">{t('home.join')}</Link>
                 </StyledContainer>
               </>
             ) : (
               <>
                 {/* <Component> */}
                   {/* <LeftComponent> */}
-                    <Slide products={productData} title="Top Selection" />
+                    <Slide products={productData} title={t('home.topSelection')} />
                   {/* </LeftComponent> */}
-{/* 
+                  {/* 
                   <RightComponent>
                     <img src={adURL} alt="" style={{ width: 217 }} />
                   </RightComponent> */}
                 {/* </Component> */}
 
-                <Slide products={productData} title="Deals of the Day" />
-                <Slide products={productData} title="Suggested Items" />
-                <Slide products={productData} title="Discounts for You" />
-                <Slide products={productData} title="Recommended Items" />
+                <Slide products={productData} title={t('home.dealsOfDay')} />
+                <Slide products={productData} title={t('home.suggestItems')} />
+                <Slide products={productData} title={t('home.discount')} />
+                <Slide products={productData} title={t('home.recommended')} />
               </>
             )}
           </>

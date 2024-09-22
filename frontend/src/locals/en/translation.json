@@ -74,11 +74,23 @@
     "footer" :{
         "Address" :"Address",
         "Contact_No":"📞 Contact No",
-        "Mobile_No":" Mobile No",
+        "Mobile_No":"📱 Mobile No",
         "Email":"📧 EMail",
         "phoneNumber":"(+977) 01-5923811",
         "mobileNo":"9767987711",
         "relatedLinks":"Related Links"
+    },
+    "home":{
+        "networkError":"Sorry, network error.",
+        "waitSecond":"Please Wait A Second",
+        "productNotFound":"No products found right now",
+        "becomeSeller":"Become a seller to add products",
+        "join":"join",
+        "topSelection":"Top Selection",
+        "dealsOfDay":"Deals of the Day",
+        "suggestItems":"Suggested Items",
+        "discount":"Discounts for You",
+        "recommended":"Recommended Items"
     }
 
 }
