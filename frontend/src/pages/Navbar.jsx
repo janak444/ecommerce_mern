@@ -103,7 +103,7 @@ const Navbar = () => {
 
     return (
         <AppBar position="sticky">
-            <Container maxWidth="xl" sx={{ backgroundColor: "#4d1c9c" }}>
+            <Container maxWidth="xl" sx={{  background: 'linear-gradient(to right, #8B0000, #4B0082)' }}>
                 <Toolbar disableGutters>
 
                     {/* MOBILE */}
@@ -145,7 +145,7 @@ const Navbar = () => {
                                 duration={500}
                                 onClick={homeHandler}
                             >
-                            {t('navbar.shopcart')}  
+                            {t('navbar.samarpan')}  
                             </NavLogo>
                         </Typography>
                 {/* Language Toggle */}
@@ -237,7 +237,7 @@ const Navbar = () => {
                             >
                                 <LocalMallIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
 
-                                {t('navbar.shopcart')}
+                                {t('navbar.samarpan')}
                             </NavLogo>
                         </Typography>
                     </HomeContainer>

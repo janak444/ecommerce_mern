@@ -83,9 +83,7 @@ const Footer = () => {
         {/* Full-width Map */}
         <MapColumn>
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28261.65324460308!2d85.30148171589194!3d27.695459987052338!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19927fc9e8c7%3A0xb28a07a477e8700d!2z4KSV4KS-4KSg4KSu4KS-4KSj4KWN4KSh4KWM4KSBIOCkieCkquCkpOCljeCkr-CkleCkviDgpLXgpL_gpJXgpL7gpLgg4KSq4KWN4KSw4KS-4KSn4KS_4KSV4KSw4KSj!5e0!3m2!1sen!2snp!4v1708360973392!5m2!1sen!2snp"
-            width="100%"
-            height="300px"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d441.5214005804171!2d85.34654882732673!3d27.71199977521107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19006e3c0bdd%3A0x2cae882bb1a08e5!2zU2FtYXJwYW4gUHVqYSBQYXNhbCAtIOCkuOCkruCksOCljeCkquCkoyDgpKrgpYLgpJzgpL4g4KSq4KS44KSy!5e0!3m2!1sen!2snp!4v1726914375356!5m2!1sen!2snp" width="100%"  allowfullscreen=""  referrerpolicy="no-referrer-when-downgrade" height="300px"
             style={{ border: "0" }}
             allowFullScreen={false}
             loading="lazy"
@@ -98,8 +96,9 @@ const Footer = () => {
           {/* Address Column */}
           <AddressColumn>
             <h2>{t("Address")}</h2>
-            <p>{t("📞 Contact No")}: {t("(+977) 01-5911017")}</p>
-            <p>{t("📧 EMail")}: urban.eba.development@gmail.com</p>
+            <p>{t("📞 Contact No")}: {t("(+977) 01-5923811")}</p>
+            <p>{t(" Mobile No")}: {t("9767987711")}</p>
+            <p>{t("📧 EMail")}: samarpan.hindu@gmail.com</p>
           </AddressColumn>
 
           {/* Related Links Column */}
@@ -125,7 +124,7 @@ const Footer = () => {
 
       <FooterText>
         {t("Last updated on")}: 1 day ago | ©{" "}
-        {t("All Rights Kathmandu Valley Development Authority - Urban EbA Project")} | @Powered By:
+        {t("All Rights Samarpan Pooja Samagri Pasal")} | @Powered By:
         Devsoft Vision | {t("Site Visited")}: 25k+
       </FooterText>
     </FooterContainer>

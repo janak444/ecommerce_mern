@@ -1,16 +1,13 @@
-import { useEffect, useState } from 'react';
-import React from 'react';
-
+import React, { useEffect, useState } from 'react';
 import { Box, CircularProgress, Stack, TextField } from '@mui/material';
 import Popup from '../../../components/Popup';
 import { BlueButton } from '../../../utils/buttonStyles';
 import { useDispatch, useSelector } from 'react-redux';
 import { addStuff } from '../../../redux/userHandle';
-import altImage from "../../../assets/altimg.png";
 import styled from 'styled-components';
+import altImage from "../../../assets/altimg.png";
 
 const AddProduct = () => {
-
   const dispatch = useDispatch();
 
   const { currentUser, status, response, error } = useSelector(state => state.user);
@@ -24,7 +21,7 @@ const AddProduct = () => {
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [tagline, setTagline] = useState("");
-  const seller = currentUser._id
+  const seller = currentUser._id;
 
   const [loader, setLoader] = useState(false);
   const [message, setMessage] = useState("");
@@ -45,10 +42,21 @@ const AddProduct = () => {
     seller
   };
 
+  // Function to handle image upload
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProductImage(reader.result); // This will set the image as a base64 string
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const submitHandler = (event) => {
     event.preventDefault();
     setLoader(true);
-    console.log(fields);
     dispatch(addStuff("ProductCreate", fields));
   };
 
@@ -90,21 +98,18 @@ const AddProduct = () => {
             <Stack spacing={1} sx={{ mb: 3 }}>
               {
                 productImage
-                  ? <ProductImage src={productImage} alt="" />
-                  : <ProductImage src={altImage} alt="" />
+                  ? <ProductImage src={productImage} alt="Product" />
+                  : <ProductImage src={altImage} alt="Alternative" />
               }
             </Stack>
             <form onSubmit={submitHandler}>
               <Stack spacing={3}>
-                <TextField
-                  fullWidth
-                  label="Product Image URL"
-                  value={productImage}
-                  onChange={(event) => setProductImage(event.target.value)}
+                {/* Input field for image upload */}
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
                   required
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
                 />
                 <TextField
                   fullWidth
@@ -209,6 +214,7 @@ const AddProduct = () => {
 
 export default AddProduct;
 
+// Styled component for product image
 const ProductImage = styled.img`
   width: 200px;
   height: auto;
