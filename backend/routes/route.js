@@ -36,7 +36,8 @@ const {
     getOrderedProductsByCustomer,
     getOrderedProductsBySeller,
     getCompletedOrdersByCustomer,
-    getCancelledOrdersByCustomer
+    getCancelledOrdersByCustomer, 
+    updateOrderStatus
 } = require('../controllers/orderController.js');
 
 
@@ -76,5 +77,6 @@ router.get('/getOrderedProductsByCustomer/:id', getOrderedProductsByCustomer);
 router.get('/getOrderedProductsBySeller/:id', getOrderedProductsBySeller);
 router.get('/getCompletedOrdersByCustomer/:id', getCompletedOrdersByCustomer);
 router.get('/getCancelledOrdersByCustomer/:id', getCancelledOrdersByCustomer);
+router.post('/updateOrderStatus/:id', updateOrderStatus);
 
 module.exports = router;

@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, TextField, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
-import { BlueButton, GreenButton } from "../../../utils/buttonStyles";
+import { Box, Typography, TextField, Dialog, DialogContent, DialogTitle, DialogActions } from "@mui/material";
+import { BlueButton, GreenButton, RedButton } from "../../../utils/buttonStyles";
 import TableTemplate from "../../../components/TableTemplate";
 import { useNavigate } from "react-router-dom";
-import { getSpecificProducts, updateProductRemarks } from "../../../redux/userHandle";
+import { getSpecificProducts, updateProductRemarks, updateProductStatus } from "../../../redux/userHandle";
 
 const OutForDeliverySection = () => {
     const navigate = useNavigate();
@@ -14,6 +14,9 @@ const OutForDeliverySection = () => {
     const [openDialog, setOpenDialog] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [remarks, setRemarks] = useState("");
+    
+    const [openCustomerDialog, setOpenCustomerDialog] = useState(false);
+    const [customerDetails, setCustomerDetails] = useState(null);
 
     // Fetch the specific products when currentUser is available
     useEffect(() => {
@@ -25,23 +28,56 @@ const OutForDeliverySection = () => {
     // Open the dialog to update remarks
     const handleOpenDialog = (product) => {
         setSelectedProduct(product);
-        setRemarks(product.remarks || ""); // Load the existing remarks or empty if not present
+        setRemarks(product.remarks || "");
         setOpenDialog(true);
     };
 
-    // Close the dialog
+    // Close the remarks dialog
     const handleCloseDialog = () => {
         setOpenDialog(false);
         setSelectedProduct(null);
         setRemarks("");
     };
 
-    // Save the updated remarks and dispatch the action
+    // Save the updated remarks
     const handleSaveRemarks = () => {
         if (selectedProduct) {
             dispatch(updateProductRemarks(selectedProduct.productID, remarks)); 
         }
-        handleCloseDialog(); // Close dialog after saving remarks
+        handleCloseDialog();
+    };
+
+    // Update product status (Complete, Cancel)
+    const handleUpdateStatus = (orderId, action) => {
+        if (!orderId || !action) {
+            console.error("Order ID and action are required");
+            return;
+        }
+    
+        if (currentUser && currentUser._id) {
+            dispatch(updateProductStatus(currentUser._id, orderId, action))
+                .catch(error => console.error("Error updating product status:", error));
+        } else {
+            console.error("Current user (seller) ID not found.");
+        }
+    };
+
+    // Handle view customer details
+    const handleViewCustomerDetails = (row) => {
+        const customerInfo = {
+            name: row.customer || "N/A",  // Adjusted to reference customer name correctly
+            email: row.customerEmail || "N/A",
+            shippingAddress: row.shippingAddress || "N/A",
+            phone: row.phone || "N/A",
+        };
+        setCustomerDetails(customerInfo);
+        setOpenCustomerDialog(true);
+    };
+
+    // Close customer dialog
+    const handleCloseCustomerDialog = () => {
+        setOpenCustomerDialog(false);
+        setCustomerDetails(null);
     };
 
     // Define columns for product table
@@ -56,21 +92,30 @@ const OutForDeliverySection = () => {
 
     // Map over specificProductData to generate rows for the table
     const productsRows = Array.isArray(specificProductData) && specificProductData.length > 0
-        ? specificProductData.flatMap(order => 
-            order.products.map(product => ({
-                customer: order.customer || "Unknown customer",
-                name: product.productName,
-                quantity: product.quantity,
-                category: product.category,
-                subcategory: product.subcategory,
-                remarks: order.remarks || "No remarks", // Use order remarks
-                id: product.productName,
-                productID: product._id,
-            }))
-        )
-        : [];
+    ? specificProductData.flatMap(order => 
+        order.products.map(product => ({
+            key: `${order.orderId}-${product._id}`,  // Unique key based on orderId and productId
+            customer: order.customer.name || "Unknown customer",
+            name: product.productName,
+            quantity: product.quantity,
+            category: product.category,
+            subcategory: product.subcategory,
+            remarks: order.remarks || "No remarks", 
+            productID: product._id || "Unknown product ID",
+            orderId: order.orderId,
+            orderStatus: order.orderStatus,
+            isCompleted: order.isCompleted,
+            isCancelled: order.isCancelled,
+            customerName: order.customer.name, // Ensure this field exists in the response
+            customerEmail: order.customer.email, // Ensure this field exists in the response
+            shippingAddress: order.shippingData.address, // Ensure this field exists in the response
+            phone: order.shippingData.phoneNo
+        }))
+    )
+    : [];
 
-    // Button component for each row (View and Update Remarks)
+
+    // Button component for each row (View Product, View Customer, Update Remarks, Complete, Cancel)
     const ProductsButtonHaver = ({ row }) => {
         return (
             <>
@@ -79,11 +124,24 @@ const OutForDeliverySection = () => {
                 >
                     View Product
                 </BlueButton>
-                <GreenButton
-                    onClick={() => handleOpenDialog(row)} 
+                <BlueButton
+                    onClick={() => handleViewCustomerDetails(row)}
+                    key={`${row.productID}-viewCustomer`}
                 >
-                    Update Remarks
+                    View Customer
+                </BlueButton>
+                <GreenButton
+                    onClick={() => handleUpdateStatus(row.orderId, 'complete')}
+                    key={`${row.productID}-complete`}
+                >
+                    Mark as Complete
                 </GreenButton>
+                <RedButton
+                    onClick={() => handleUpdateStatus(row.orderId, 'cancel')}
+                    key={`${row.productID}-cancel`}
+                >
+                    Cancel Order
+                </RedButton>
             </>
         );
     };
@@ -109,28 +167,21 @@ const OutForDeliverySection = () => {
                 </>
             }
 
-            {/* Dialog for updating remarks */}
-            <Dialog open={openDialog} onClose={handleCloseDialog}>
-                <DialogTitle>Update Remarks for {selectedProduct?.name}</DialogTitle>
+            {/* Dialog for viewing customer details */}
+            <Dialog open={openCustomerDialog} onClose={handleCloseCustomerDialog}>
+                <DialogTitle>Customer Details</DialogTitle>
                 <DialogContent>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        label="Remarks"
-                        fullWidth
-                        multiline
-                        rows={4}
-                        value={remarks}
-                        onChange={(e) => setRemarks(e.target.value)} // Update remarks state on input change
-                    />
+                    {customerDetails && (
+                        <>
+                            <Typography variant="body1"><strong>Name:</strong> {customerDetails.name}</Typography>
+                            <Typography variant="body1"><strong>Email:</strong> {customerDetails.email}</Typography>
+                            <Typography variant="body1"><strong>Phone:</strong> {customerDetails.phone}</Typography>
+                            <Typography variant="body1"><strong>Shipping Address:</strong> {customerDetails.shippingAddress}</Typography>
+                        </>
+                    )}
                 </DialogContent>
                 <DialogActions>
-                    <BlueButton onClick={handleCloseDialog}>
-                        Cancel
-                    </BlueButton>
-                    <GreenButton onClick={handleSaveRemarks}>
-                        Save Remarks
-                    </GreenButton>
+                    <RedButton onClick={handleCloseCustomerDialog}>Close</RedButton>
                 </DialogActions>
             </Dialog>
         </>

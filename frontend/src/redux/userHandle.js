@@ -45,7 +45,6 @@ export const authUser = (fields, role, mode) => async (dispatch) => {
     }
 };
 
-
 export const addStuff = (address, fields) => async (dispatch) => {
     dispatch(authRequest());
 
@@ -227,5 +226,39 @@ export const updateProductRemarks = (productId, remarks) => async (dispatch) => 
             type: 'UPDATE_PRODUCT_REMARKS_FAIL',
             payload: error.response && error.response.data.message ? error.response.data.message : error.message,
         });
+    }
+};
+
+export const updateProductStatus = (sellerID, orderId, status) => async (dispatch) => {
+    // Check if sellerID, orderId, and status are provided
+    if (!sellerID || !orderId || !status) {
+        console.error("Seller ID, Order ID, and action (status) are required");
+        return;
+    }
+
+    try {
+        // POST request to update order status
+        const response = await axios.post(
+            `${process.env.REACT_APP_BASE_URL}/updateOrderStatus/${sellerID}`,
+            { orderId, action: status }  // Correct payload
+        );
+
+        // Dispatch success action with the response data
+        dispatch({
+            type: 'UPDATE_PRODUCT_STATUS_SUCCESS',
+            payload: response.data,
+        });
+
+        // Optionally, you can return the response or success message
+        alert(`Order has been marked as ${status}.`);
+    } catch (error) {
+        // Dispatch failure action with the error message
+        dispatch({
+            type: 'UPDATE_PRODUCT_STATUS_FAILURE',
+            payload: error.response?.data?.message || error.message,
+        });
+
+        // Log detailed error for debugging
+        console.error(`Error updating order status:`, error.response?.data || error.message);
     }
 };
