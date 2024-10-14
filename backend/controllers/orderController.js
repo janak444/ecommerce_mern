@@ -100,14 +100,14 @@ const getCancelledOrdersByCustomer = async (req, res) => {
 // Get ordered products by seller ID, merging quantities of the same products
 const getOrderedProductsBySeller = async (req, res) => {
     try {
-        const sellerId = req.params.id; // Seller ID from URL
+        const sellerId = req.params.id;
 
         // Fetch orders for the given seller ID
         const ordersWithSellerId = await Order.find({
             'orderedProducts.seller': sellerId
         })
         .populate('buyer', 'name email') // Populate buyer information (name and email)
-        .select('orderedProducts remarks buyer orderStatus isCompleted isCancelled shippingData'); // Select necessary fields including shipping data
+        .select('orderedProducts remarks buyer orderStatus isCompleted isCancelled shippingData'); 
 
         // If orders are found, map and format them for the response
         if (ordersWithSellerId.length > 0) {
@@ -134,7 +134,8 @@ const getOrderedProductsBySeller = async (req, res) => {
                     description: product.description,
                     tagline: product.tagline,
                     quantity: product.quantity,
-                    seller: product.seller // Seller reference (already filtered by this seller)
+                    seller: product.seller, // Seller reference (already filtered by this seller)
+                    productID: product._id 
                 })),
                 remarks: order.remarks || "No remarks", // Order remarks
                 orderStatus: order.orderStatus,  // Current order status

@@ -115,7 +115,7 @@ const orderSchema = new mongoose.Schema(
         orderStatus: {
             type: String,
             required: true,
-            default: "Processing",  // Status can be "Pending", "Completed", "Cancelled", etc.
+            default: "Pending",  // Status can be "Pending", "Completed", "Cancelled", etc.
         },
         isCompleted: {
             type: Boolean,

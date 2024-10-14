@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, TextField, Dialog, DialogContent, DialogTitle, DialogActions } from "@mui/material";
+import { Box, Typography, Dialog, DialogContent, DialogTitle, DialogActions } from "@mui/material";
 import { BlueButton, GreenButton, RedButton } from "../../../utils/buttonStyles";
 import TableTemplate from "../../../components/TableTemplate";
 import { useNavigate } from "react-router-dom";
-import { getSpecificProducts, updateProductRemarks, updateProductStatus } from "../../../redux/userHandle";
+import { getSpecificProducts, updateProductStatus } from "../../../redux/userHandle";
 
-const OutForDeliverySection = () => {
+const CancelledOrderSection = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { currentUser, specificProductData, responseSpecificProducts } = useSelector(state => state.user);
@@ -30,21 +30,6 @@ const OutForDeliverySection = () => {
         setSelectedProduct(product);
         setRemarks(product.remarks || "");
         setOpenDialog(true);
-    };
-
-    // Close the remarks dialog
-    const handleCloseDialog = () => {
-        setOpenDialog(false);
-        setSelectedProduct(null);
-        setRemarks("");
-    };
-
-    // Save the updated remarks
-    const handleSaveRemarks = () => {
-        if (selectedProduct) {
-            dispatch(updateProductRemarks(selectedProduct.productID, remarks)); 
-        }
-        handleCloseDialog();
     };
 
     // Update product status (Complete, Cancel)
@@ -92,13 +77,13 @@ const OutForDeliverySection = () => {
 
     // Map over specificProductData to generate rows for the table
     const productsRows = Array.isArray(specificProductData) && specificProductData.length > 0
-    ? specificProductData.filter(order => order.orderStatus === "Pending").flatMap(order => 
+    ? specificProductData.filter(order => order.isCancelled).flatMap(order => 
         order.products.map(product => ({
             key: `${order.orderId}-${product.productID}`,  // Unique key based on orderId and productId
             customer: order.customer.name || "Unknown customer",
             name: product.productName,
             quantity: product.quantity,
-            category: product.category, 
+            category: product.category,
             subcategory: product.subcategory,
             remarks: order.remarks || "No remarks", 
             productID: product.productID || "Unknown product ID",
@@ -106,9 +91,9 @@ const OutForDeliverySection = () => {
             orderStatus: order.orderStatus,
             isCompleted: order.isCompleted,
             isCancelled: order.isCancelled,
-            customerName: order.customer.name, 
-            customerEmail: order.customer.email, 
-            shippingAddress: order.shippingData.address, 
+            customerName: order.customer.name, // Ensure this field exists in the response
+            customerEmail: order.customer.email, // Ensure this field exists in the response
+            shippingAddress: order.shippingData.address, // Ensure this field exists in the response
             phone: order.shippingData.phoneNo
         }))
     )
@@ -130,18 +115,6 @@ const OutForDeliverySection = () => {
                 >
                     View Customer
                 </BlueButton>
-                <GreenButton
-                    onClick={() => handleUpdateStatus(row.orderId, 'complete')}
-                    key={`${row.productID}-complete`}
-                >
-                    Mark as Complete
-                </GreenButton>
-                <RedButton
-                    onClick={() => handleUpdateStatus(row.orderId, 'cancel')}
-                    key={`${row.productID}-cancel`}
-                >
-                    Cancel Order
-                </RedButton>
             </>
         );
     };
@@ -188,4 +161,4 @@ const OutForDeliverySection = () => {
     );
 };
 
-export default OutForDeliverySection;
+export default CancelledOrderSection;
