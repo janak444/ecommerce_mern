@@ -50,7 +50,7 @@ const CompletedDeliverySection = () => {
     // Handle view customer details
     const handleViewCustomerDetails = (row) => {
         const customerInfo = {
-            name: row.customer || "N/A",  // Adjusted to reference customer name correctly
+            name: row.customer || "N/A", 
             email: row.customerEmail || "N/A",
             shippingAddress: row.shippingAddress || "N/A",
             phone: row.phone || "N/A",
@@ -79,7 +79,7 @@ const CompletedDeliverySection = () => {
     const productsRows = Array.isArray(specificProductData) && specificProductData.length > 0
     ? specificProductData.filter(order => order.isCompleted).flatMap(order => 
         order.products.map(product => ({
-            key: `${order.orderId}-${product.productID}`,  // Unique key based on orderId and productId
+            key: `${order.orderId}-${product.productID}`,  
             customer: order.customer.name || "Unknown customer",
             name: product.productName,
             quantity: product.quantity,
@@ -91,9 +91,9 @@ const CompletedDeliverySection = () => {
             orderStatus: order.orderStatus,
             isCompleted: order.isCompleted,
             isCancelled: order.isCancelled,
-            customerName: order.customer.name, // Ensure this field exists in the response
-            customerEmail: order.customer.email, // Ensure this field exists in the response
-            shippingAddress: order.shippingData.address, // Ensure this field exists in the response
+            customerName: order.customer.name, 
+            customerEmail: order.customer.email,
+            shippingAddress: order.shippingData.address,
             phone: order.shippingData.phoneNo
         }))
     )
